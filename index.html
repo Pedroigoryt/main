@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f7f7f7;
+      flex-direction: column; 
+    }
+
+    .login-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .login-container img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Estilos da calculadora */
+    .calculator-container {
+      display: none; 
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px; 
+    }
+
+    .calculator-container h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    .calculator-container label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .calculator-container input[type="number"],
+    .calculator-container select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .calculator-container button {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .calculator-container button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #e7f3ff;
+      padding: 15px;
+      border: 1px solid #007BFF;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .card i {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .result .card p strong {
+      color: #007BFF;
+      font-size: 1.2em;
+    }
+
+    .calculator-container header img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 300px;
+    }
+
+    /* Media queries para responsividade */
+    @media (max-width: 768px) {
+      .login-container, .calculator-container {
+        padding: 20px;
+      }
+
+      .login-container img {
+        width: 80px;
+        height: 80px;
+      }
+
+      input[type="text"], input[type="password"] {
+        padding: 8px;
+      }
+
+      h1 {
+        font-size: 1.8em; 
+      }
+
+      .card {
+        padding: 10px;
+      }
+
+      .card i {
+        font-size: 1.5em; 
+      }
+
+      .result .card p strong {
+        font-size: 1em; 
+      }
+    }
+
+    @media (max-width: 480px) {
+      .result {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+
+      .login-container img {
+        width: 60px;
+        height: 60px;
+      }
+
+      h1 {
+        font-size: 1.5em; 
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="https://media-gru2-2.cdn.whatsapp.net/v/t61.24694-24/386287470_1514768135983642_668042773250217006_n.jpg?stp=dst-jpg_tt6&ccb=11-4&oh=01_Q5AaIAWaEv7JpIxSc8xFaAoHTsadSBpXLH1ir8gpaNN83FBQ&oe=6766B43B&_nc_sid=5e03e0&_nc_cat=107" alt="Foto do Usuário">
+    <input type="text" id="username" placeholder="Usuário">
+    <input type="password" id="password" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
+  </div>
+
+  <div class="calculator-container"> 
+    <header>
+      <img src="https://i.postimg.cc/hGCzXCRT/imagem-2024-12-11-091240921.png" alt="Imagem de Cabeçalho">
+    </header>
+
+    <h1>Calculadora de Dimensionamento do Elevador de Grãos</h1>
+    <form id="elevatorForm">
+      <label for="desiredHeight">Altura Total Desejada (metros):</label>
+      <input type="number" id="desiredHeight" name="desiredHeight" step="0.01" required>
+
+      <label for="capacity">Capacidade do Elevador (t/h):</label>
+      <input type="number" id="capacity" name="capacity" step="0.01" required>
+
+      <label for="grainType">Tipo de Grão:</label>
+      <select id="grainType" name="grainType">
+        <option value="soja">Soja</option>
+        <option value="milho">Milho</option>
+      </select>
+
+      <label for="elevatorModel">Modelo do Elevador:</label>
+      <select id="elevatorModel" name="elevatorModel">
+        <option value="EA0">EA0</option>
+        <option value="EA1">EA1</option>
+        <option value="EA2">EA2</option>
+        <option value="EA3">EA3</option>
+        <option value="EA4">EA4</option>
+      </select>
+
+      <button type="button" onclick="calculateConfiguration()">Calcular Dimensionamento</button>
+    </form>
+
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username === 'Admin' && password === 'Admin') {
+        // Oculta a tela de login
+        document.querySelector('.login-container').style.display = 'none'; 
+        // Exibe a calculadora
+        document.querySelector('.calculator-container').style.display = 'block'; 
+      } else {
+        alert('Usuário ou senha inválidos!');
+      }
+    }
+
+    function calculateConfiguration() {
+      const desiredHeight = parseFloat(document.getElementById('desiredHeight').value);
+      const capacity = parseFloat(document.getElementById('capacity').value);
+      const grainType = document.getElementById('grainType').value;
+      const elevatorModel = document.getElementById('elevatorModel').value;
+      const grainDensity = grainType === 'soja' ? 790 : 720;
+      let beltSpeed = 1.5;
+      let bucketSpacing = 20;
+      let drumDiameter = 200;
+      let baseThickness = 4.0;
+
+      if (elevatorModel === 'EA0' || elevatorModel === 'EA1') {
+        beltSpeed = 1.5;
+      } else if (elevatorModel === 'EA2' || elevatorModel === 'EA3') {
+        beltSpeed = 2.0;
+      } else if (elevatorModel === 'EA4') {
+        beltSpeed = 2.5;
+      }
+
+      if (elevatorModel === 'EA0') {
+        bucketSpacing = 20;
+      } else if (elevatorModel === 'EA1' || elevatorModel === 'EA2') {
+        bucketSpacing = 25;
+      } else if (elevatorModel === 'EA3' || elevatorModel === 'EA4') {
+        bucketSpacing = 30;
+      }
+
+      if (elevatorModel === 'EA0') {
+        drumDiameter = 200;
+      } else if (elevatorModel === 'EA1') {
+        drumDiameter = 250;
+      } else if (elevatorModel === 'EA2') {
+        drumDiameter = 315;
+      } else if (elevatorModel === 'EA3') {
+        drumDiameter = 400;
+      } else if (elevatorModel === 'EA4') {
+        drumDiameter = 500;
+      }
+
+      const baseHeight = 1.0;
+      const headHeight = 1.0;
+      const headThickness = 2.7;
+      let remainingHeight = desiredHeight - (baseHeight + headHeight);
+      const num2mSections = Math.floor(remainingHeight / 2);
+      remainingHeight -= num2mSections * 2;
+      const num1mSections = Math.ceil(remainingHeight);
+      let motorPower = (capacity * grainDensity * desiredHeight) / (3600 * beltSpeed * bucketSpacing);
+      motorPower = Math.ceil(motorPower);
+
+      let peEspessura;
+      if (desiredHeight <= 10) {
+        peEspessura = "1,95 mm";
+        baseThickness = 3.0;
+      } else if (desiredHeight <= 20) {
+        peEspessura = "2,75 ou 3,00 mm";
+      } else {
+        peEspessura = "3,00 ou 4,75 mm";
+      }
+
+      document.getElementById('result').innerHTML = `
+        <div class="card">
+          <i class="fas fa-horse-head"></i> 
+          <p>Potência do Motor: <strong>${motorPower} CV</strong></p>
+        </div>
+        <div class="card">
+          <i class="fas fa-weight-hanging"></i>
+          <p>Densidade do Grão: <strong>${grainDensity} kg/m³</strong></p>
+        </div>
+        <div class="card">
+          <i class="fas fa-tachometer-alt"></i>
+          <p>Velocidade da Correia: <strong>${beltSpeed} m/s</strong></p>
+        </div>
+        <div class="card">
+          <i class="fas fa-arrows-alt-h"></i>
+          <p>Espaçamento entre Canecas: <strong>${bucketSpacing} cm</strong></p>
+        </div>
+        <div class="card">
+          <i class="fas fa-circle"></i>
+          <p>Diâmetro do Tambor: <strong>${drumDiameter} mm</strong></p>
+        </div>
+        <div class="card">
+          <i class="fas fa-shoe-prints"></i>
+          <p>Pé do Elevador: <strong>${baseHeight} m</strong> (Espessura: ${peEspessura})</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-hard-hat"></i>
+          <p>Cabeça do Elevador: <strong>${headHeight} m</strong> (Espessura: ${headThickness} mm)</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-ruler-combined"></i>
+          <p>Calhas de 2 metros: <strong>${num2mSections}</strong></p>
+        </div>
+        <div class="card">
+          <i class="fas fa-ruler"></i>
+          <p>Calhas de 1 metro: <strong>${num1mSections}</strong></p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
